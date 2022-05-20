@@ -1,5 +1,8 @@
-    %% option.ROI                  = [40 95 400 140];  % A rectangle [x, y, w, h] that limits the processing area to ground locations.
-    %% option.scThresh             = 0.3;              % A threshold to control the tolerance of error in estimating the scale of a detected pedestrian.
+    % Thresholds and costs need to be altered below as per the output
+    % may require input from previous section of code
+    % Code adopted/inspired from Mathworks.com (please mention this comment in the comments in GUI code as some codes may be familiar with the codes on mathsworks.com)
+    % Please delete the comments before putting it in GUI code, comments are just for understanding.
+    
     option.gatingThresh         = 0.9;              % A threshold to reject a candidate match between a detection and a track.
     option.gatingCost           = 100;              % A large value for the assignment cost matrix that enforces the rejection of a candidate match.
     option.costOfNonAssignment  = 10;               % A tuning parameter to control the likelihood of creation of a new track.
@@ -50,7 +53,7 @@
             T = min(size(tracks(trackIdx).bboxes,1), 4);
             w = mean([tracks(trackIdx).bboxes(end-T+1:end, 3); bbox(3)]);
             h = mean([tracks(trackIdx).bboxes(end-T+1:end, 4); bbox(4)]);
-            tracks(trackIdx).bboxes(end+1, :) = [centroid - [w, h]/2, w, h];
+            tracks(trackIdx).bboxes(end+1,:) = [centroid - [w, h]/2, w, h];
 
             % Update track's age.
             tracks(trackIdx).age = tracks(trackIdx).age + 1;
